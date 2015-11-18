@@ -1,5 +1,6 @@
 package com.titan.conan.selenium.test;
 
+import java.util.LinkedHashMap;
 import java.util.concurrent.TimeUnit;
 import org.junit.After;
 import org.junit.Before;
@@ -7,13 +8,6 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeDriverService;
-
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriverService;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 import com.titan.conan.selenium.interfaces.ISeleniumUtils;
 import com.titan.conan.selenium.webdrivers.ChromeWebDriver;
@@ -26,7 +20,7 @@ public class LoginTest extends TestCase {
 
 	private WebDriver driver;
 	private ISeleniumUtils utils;
-	private static final String WEB_DRIVER_NAME = "PHANTOMJS"; //PHANTOMJS : CHROME
+	private static final String WEB_DRIVER_NAME = "CHROME"; //PHANTOMJS : CHROME
 	@Before
 	public void setUp() throws Exception {
 		if(WEB_DRIVER_NAME.equals("CHROME")) {
@@ -44,18 +38,15 @@ public class LoginTest extends TestCase {
 		driver.get("http://www.baidu.com/");
 		System.out.println(driver.getTitle());
 		driver.manage().window().maximize();
-		WebElement loginLink = driver.findElement(By.linkText("登录"));
+		WebElement loginLink = utils.findElementByLinkText("登录");
 		loginLink.click();
-		WebElement baiduUserid = driver.findElement(By.id("TANGRAM__PSP_8__userName"));
-		baiduUserid.clear();
-		baiduUserid.sendKeys("nan125001930");
-		WebElement baiduPassword = driver.findElement(By.id("TANGRAM__PSP_8__password"));
-		baiduPassword.clear();
-		baiduPassword.sendKeys("sxn_125001930");
-		WebElement loginBtn = driver.findElement(By.id("TANGRAM__PSP_8__submit"));
+		LinkedHashMap<By,String> inputFiledsInfo = new LinkedHashMap<By,String>();
+		inputFiledsInfo.put(By.id("TANGRAM__PSP_8__userName"), "nan125001930");
+		inputFiledsInfo.put(By.id("TANGRAM__PSP_8__password"), "sxn_125001930");
+		utils.typeInputFieldsWithClear(inputFiledsInfo);
+		WebElement loginBtn = utils.findElementById("TANGRAM__PSP_8__submit");
 		loginBtn.click();
-		WebElement myCareDiv = driver.findElement(By.className("mine-text"));
-		Assert.assertNotNull(myCareDiv);
+		Assert.assertTrue(utils.elementExist(By.className("mine-text")));
 	}
 	
 	@After

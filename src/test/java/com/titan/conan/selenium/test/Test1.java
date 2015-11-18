@@ -21,7 +21,7 @@ public class Test1 {
         map.put(5, "5");
         map.put(4, "4");
         for(int i : map.keySet()) {
-        	System.out.println(map.get(i));
+        	System.out.print(i + ":" + map.get(i) + " | "  );
         }
 	}
 }
