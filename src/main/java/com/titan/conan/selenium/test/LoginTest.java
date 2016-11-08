@@ -45,8 +45,8 @@ public class LoginTest extends TestCase {
 		WebElement loginLink = seleniumUtils.findElementByLinkText("登录");
 		loginLink.click();
 		LinkedHashMap<By, String> inputFiledsInfo = new LinkedHashMap<By, String>();
-		inputFiledsInfo.put(By.id("TANGRAM__PSP_8__userName"), "");
-		inputFiledsInfo.put(By.id("TANGRAM__PSP_8__password"), "");
+		inputFiledsInfo.put(By.id("TANGRAM__PSP_8__userName"), "username");
+		inputFiledsInfo.put(By.id("TANGRAM__PSP_8__password"), "password");
 		seleniumUtils.typeInputFieldsWithClear(inputFiledsInfo);
 		WebElement loginBtn = seleniumUtils.findElementById("TANGRAM__PSP_8__submit");
 		loginBtn.click();
